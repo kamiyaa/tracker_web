@@ -1,0 +1,97 @@
+<html>
+<header>
+    <title>My online test</title>
+</header>
+<body id="body">
+    <h1 id="myheader">Welcome to Kamiyaa's Online Test!</h1>
+
+    <h4>Window/Tab visibility:</h4>
+    <div id="visibility">Current visibility: visible</div>
+
+    <h4>Window Focus:</h4>
+    <div id="focus1">While loop hasFocus() (focus1): In focus</div>
+    <div id="focus2">Focusin/out event (focus2): In focus</div>
+
+    <h4>Cursor Coordinates:</h4>
+    <div id="cursorx"></div>
+    <div id="cursory"></div>
+
+</body>
+
+<script>
+window.addEventListener("load", () => {
+    function generateRGB() {
+        const red = Math.round(Math.random() * 255);
+        const green = Math.round(Math.random() * 255);
+        const blue = Math.round(Math.random() * 255);
+
+        return { red, green, blue };
+    }
+
+    function setVisibility() {
+        const element = document.getElementById("visibility");
+        const current_status = `Current visibility: ${document.visibilityState}`;
+        element.innerHTML = current_status;
+
+        const { red, green, blue } = generateRGB();
+        element.style.color = `rgb(${red}, ${green}, ${blue})`;
+
+        alert(current_status);
+    }
+    document.addEventListener("visibilitychange", setVisibility);
+
+    function checkPageFocus() {
+        const element = document.getElementById("focus1");
+
+        if (document.hasFocus()) {
+            element.innerHTML = "Current focus1: In focus";
+        } else {
+            element.innerHTML = "Current focus1: Not in focus";
+        }
+
+        const { red, green, blue } = generateRGB();
+        element.style.color = `rgb(${red}, ${green}, ${blue})`;
+    }
+    setInterval(checkPageFocus, 500);
+
+    function onFocus() {
+        console.log("HellO");
+        const element = document.getElementById("focus2");
+        element.innerHTML = "Current focus2: In focus";
+
+        const { red, green, blue } = generateRGB();
+        element.style.color = `rgb(${red}, ${green}, ${blue})`;
+    }
+
+    function onBlur() {
+        const element = document.getElementById("focus2");
+        element.innerHTML = "Current focus2: Not in focus";
+
+        const { red, green, blue } = generateRGB();
+        element.style.color = `rgb(${red}, ${green}, ${blue})`;
+    }
+    const body = document.getElementById("body");
+
+    body.addEventListener("focusin", onFocus);
+    body.addEventListener("focusout", onBlur);
+
+    document.addEventListener("focusin", onFocus);
+    document.addEventListener("focusout", onBlur);
+
+    window.addEventListener("focusin", onFocus);
+    window.addEventListener("focusout", onBlur);
+
+    document.body.addEventListener("mousemove", (e) => {
+        const x = document.getElementById("cursorx");
+        const y = document.getElementById("cursory");
+        x.innerHTML = `x: ${x}`;
+        y.innerHTML = `y: ${y}`;
+    });
+    // window.onfocusin = onFocus;
+    // window.onfocusout = onBlur;
+
+    // document.onfocusin = onFocus;
+    // document.onfocusout = onBlur;
+});
+</script>
+</html>
