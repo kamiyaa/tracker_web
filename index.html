@@ -1,6 +1,11 @@
 <html>
 <header>
     <title>My online test</title>
+    <style>
+        h4 {
+            margin: 0.5rem 0 0.25rem 0;
+        }
+    </style>
 </header>
 <body id="body">
     <h1 id="myheader">Welcome to Kamiyaa's Online Test!</h1>
@@ -9,12 +14,31 @@
     <div id="visibility">Current visibility: visible</div>
 
     <h4>Window Focus:</h4>
-    <div id="focus1">While loop hasFocus() (focus1): In focus</div>
-    <div id="focus2">Focusin/out event (focus2): In focus</div>
+    <div>While loop hasFocus() (focus1):
+        <span id="focus1">In focus</span>
+    </div>
+    <div>Focusin/out event (focus2):
+        <span id="focus2">In focus</span>
+    </div>
 
     <h4>Cursor Coordinates:</h4>
-    <div id="cursorx"></div>
-    <div id="cursory"></div>
+    <span id="cursorx"></span>
+    <span id="cursory"></span>
+
+    <form>
+        <h5>Question 1 Answer:</h5>
+        <input type="text"></input>
+
+        <h5>Question 2 Answer:</h5>
+        <input type="text"></input>
+    </form>
+    <select>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+    </select>
+    <button>Fake Submit</button>
+
 
 </body>
 
@@ -44,9 +68,9 @@ window.addEventListener("load", () => {
         const element = document.getElementById("focus1");
 
         if (document.hasFocus()) {
-            element.innerHTML = "Current focus1: In focus";
+            element.innerHTML = "In focus";
         } else {
-            element.innerHTML = "Current focus1: Not in focus";
+            element.innerHTML = "Not in focus";
         }
 
         const { red, green, blue } = generateRGB();
@@ -55,9 +79,8 @@ window.addEventListener("load", () => {
     setInterval(checkPageFocus, 500);
 
     function onFocus() {
-        console.log("HellO");
         const element = document.getElementById("focus2");
-        element.innerHTML = "Current focus2: In focus";
+        element.innerHTML = "In focus";
 
         const { red, green, blue } = generateRGB();
         element.style.color = `rgb(${red}, ${green}, ${blue})`;
@@ -65,33 +88,20 @@ window.addEventListener("load", () => {
 
     function onBlur() {
         const element = document.getElementById("focus2");
-        element.innerHTML = "Current focus2: Not in focus";
+        element.innerHTML = "Not in focus";
 
         const { red, green, blue } = generateRGB();
         element.style.color = `rgb(${red}, ${green}, ${blue})`;
     }
-    const body = document.getElementById("body");
-
-    body.addEventListener("focusin", onFocus);
-    body.addEventListener("focusout", onBlur);
-
     document.addEventListener("focusin", onFocus);
     document.addEventListener("focusout", onBlur);
-
-    window.addEventListener("focusin", onFocus);
-    window.addEventListener("focusout", onBlur);
 
     document.body.addEventListener("mousemove", (e) => {
         const x = document.getElementById("cursorx");
         const y = document.getElementById("cursory");
-        x.innerHTML = `x: ${x}`;
-        y.innerHTML = `y: ${y}`;
+        x.innerHTML = `x: ${e.clientX}`;
+        y.innerHTML = `y: ${e.clientY}`;
     });
-    // window.onfocusin = onFocus;
-    // window.onfocusout = onBlur;
-
-    // document.onfocusin = onFocus;
-    // document.onfocusout = onBlur;
 });
 </script>
 </html>
